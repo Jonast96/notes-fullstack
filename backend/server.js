@@ -1,9 +1,8 @@
-const express = require("express");
+// server.js
+
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const app = express();
-
-const noteRoutes = require("./routes/Note");
+const app = require("./app");
 
 // Configuration for environment variables
 dotenv.config({
@@ -25,17 +24,6 @@ mongoose
   .catch((err) => {
     console.error("DB connection error:", err);
   });
-
-// Middleware to parse JSON data
-app.use(express.json());
-
-// Define a simple route for testing
-app.get("/", (req, res) => {
-  res.send("Hello, world!");
-});
-
-//Use the Note routes
-app.use("/api/notes", noteRoutes);
 
 // Start the server
 const port = process.env.PORT || 3000;
