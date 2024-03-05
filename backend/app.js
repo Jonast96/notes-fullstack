@@ -3,6 +3,9 @@
 const express = require("express");
 const app = express();
 const noteRoutes = require("./routes/Note");
+const cors = require("cors");
+
+// Middleware to enable CORS
 
 // Middleware to parse JSON data
 app.use(express.json());

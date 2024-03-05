@@ -9,12 +9,36 @@ function App() {
 
   function onSubmit(e) {
     e.preventDefault();
-    console.log(notes);
-    setNotes({
-      title: "",
-      content: "",
-    });
+
+    // Endpoint where you're sending the POST request
+    const endpoint = "http://localhost:3000/api/notes"; // Adjust the port and route as necessary
+
+    fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(notes),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Network response was not ok.");
+      })
+      .then((data) => {
+        console.log("Success:", data);
+        // Clear the form fields after successful submission
+        setNotes({
+          title: "",
+          content: "",
+        });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   }
+
   return (
     <>
       <h1>Note taker</h1>
